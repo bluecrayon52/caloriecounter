@@ -14,21 +14,38 @@ function fieldSet(labelText, inputValue) {
     ]);
 }
 
+function buttonSet(dispatch) {
+    return div([
+        button({
+            className: 'f3 pv2 ph3 bg-blue white bn mr2 dim',
+            type: 'submit'
+        }, 'Save'),
+
+        button({
+            className: 'f3 pv2 ph3 bg-light-gray bn dim',
+            type: 'button'
+        }, 'Cancel')
+    ]);
+}
+
 function formView(dispatch, model) {
-    const { description, calories } = model; 
-    return form(
-        {
-            className: 'w-100 mv2',
-        },
-        [
-            fieldSet('Meal', description), 
-            fieldSet('Calories', calories || ''), 
-        ],
+    const { description, calories, showForm} = model; 
+    if (showForm) {
+        return form(
+            {
+                className: 'w-100 mv2',
+            },
+            [
+                fieldSet('Meal', description), 
+                fieldSet('Calories', calories || ''), 
+                buttonSet(dispatch)
+            ],
+        );
+    }
+    return button(
+        {className: 'f3 pv2 ph3 bg-blue white bn'}, 
+        'Add meal',
     );
-    // return button(
-    //     {className: 'f3 pv2 ph3 bg-blue white bn'}, 
-    //     'Add meal',
-    // );
 
 }
 function view(dispatch, model) {
